@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Weekly Wallet</title>
+  <link rel="stylesheet" href="style/style.css">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+
+<body>
+  <form>
+    <p>Expense: <input id="input" type="text"></input></p>
+    <p>Type: <select id="category">
+      <option value="Entertainment">Entertainment</option>
+      <option value="Bills">Bills</option>
+      <option value="Food">Food</option>
+      <option value="Clothing">Clothing</option>
+      <option value="Misc">Misc.</option>
+    </select>
+    </p>
+    <button type="button" id="expButton">Add</button>
+  </form>
+  <div class="wrapper">
+      <section id="expenseList">
+
+          </section>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="script/script.js"></script>
+</body>
+</html>
