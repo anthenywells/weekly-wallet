@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Weeklytwo Wallet</title>
-  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="styles.css">
   <!-- font awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="modal:open" href="add-expense">
@@ -13,13 +13,18 @@
 
 <body>
   <form>
-        <!-- Add Expense Button -->
+        <p class="title">Weekly Wallet</p>
+        <div class="budgetFactor"> 
+            <p>What is your weekly budget? <input id="input-total" type="number"><button class="submit" value="submit">Submit Budget</submit></input></p>
+        </div>
+                <!-- Add Expense Button -->
         <button id="add-expense" class="open">Add New Expense</button> 
         <!--Creating the popup body with class .popup-overlay-->
         <div class="popup-overlay">
         <!--Creating the popup-content that shows when the `add expense` button is clicked-->
          <div class="popup-content">
                     <p>Expense: <input id="input" type="text"></input></p>
+                    <p> Amount: <input id="amount-input" type="number"></input></p>
                     <p>Type: <select id="category">
                         <option value="Entertainment">Entertainment</option>
                         <option value="Bills">Bills</option>

@@ -11,4 +11,22 @@
         
         .popup-content.active {
         visibility:visible;
-        }
+}
+.add-expense {
+    visibility: hidden;
+    }
+    .add-expense.active {
+        visibility: visible;
+    }
+.budgetFactor {
+    visibility: visible;
+}
+    .budgetFactor.active {
+        visibility: hidden;
+    }
+.open {
+    visibility: hidden;
+}
+    .open.active {
+        visibility: visible;
+    }
