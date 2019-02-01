@@ -1,32 +1,261 @@
-.popup-overlay {
-    visibility:hidden;
-    }
-    
-    .popup-content {
-    visibility:hidden;
-    }
-    .popup-overlay.active{
-        visibility:visible;
-        }
-        
-        .popup-content.active {
-        visibility:visible;
+body, html {
+  height: 100%;
+  font-family: 'Lato', sans-serif;
+}
+
+#parallax { 
+  background-image: 
+  linear-gradient(
+    rgba(71,131,62, 0.9), 
+    rgba(71,131,62, 0.7)
+    ),
+  url(/assets/sage-green-canvas-fabric-texture.jpg);
+  height: 100%; 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+/* Weekly Wallet logo */
+#logo {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 3em;
+}
+ /* landing section */
+#blurb {
+  width: 90%;
+  color: #ffffff;
+}
+/* try now button */
+.myButton {
+	background-color:#f9f9f9;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#666666;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+/* wallet img */
+.bottomright {
+  position: absolute;
+  bottom: 8px;
+}
+img {
+  width: 16em;
+  height: auto;
+}
+
+/* section for pie chart & expense list */
+#main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  background-color: #ffffff;
+  padding-bottom: 85px;
+}
+/* pie chart */
+#chart {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* buttons */
+.selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 25px 0;
+
+}
+/* update budget button */
+.newBudget {
+  background-color: #47833e;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	color:#ffffff;
+	padding:6px 24px;
+	text-decoration:none;
+}
+.newBudget:hover {
+  background-color: #006600;
+}
+/* add expense button */
+.addButton {
+  background-color: #47833e;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	color:#ffffff;
+	padding:6px 24px;
+	text-decoration:none;
+}
+.addButton:hover {
+  background-color: #006600;
+}
+/* select/dropdown expense menu */
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+.select-selected {
+  background-color: #47833e;
+  border-radius:6px;
+  border:1px solid #dcdcdc;
+
+}
+.category:hover {
+  background-color: #006600;
+}
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+/* style the items (options), including the selected item: */
+.select-items div,.select-selected {
+  color: #ffffff;
+	padding:6px 22px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: #47833e;
+	border:1px solid #dcdcdc;
+  border-radius:6px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: #006600;
+}
+/* expense overflow section */
+#list {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* expense overflow list */
+#overflowTest {
+  color:black;
+  /* background: rgba(0, 0, 0, .1); */
+  padding: 15px;
+  width: 80%;
+  height: 250px;
+  overflow: scroll;
+  border: 1px solid #ccc;
+}
+/* footer */
+footer {
+  color: #47833e;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  margin:25px;
+}
+form {
+  display:none;
+}
+
+
+
+/* modals style */
+/* .popup-overlay {
+  visibility:hidden;
+  }
+.popup-content {
+  visibility:hidden;
+  }
+.popup-overlay.active{
+  visibility:visible;
+  } 
+.popup-content.active {
+  visibility:visible;
 }
 .add-expense {
-    visibility: hidden;
-    }
-    .add-expense.active {
-        visibility: visible;
-    }
+  visibility: hidden;
+}
+.add-expense.active {
+  visibility: visible;
+  }
 .questionOne {
-    visibility: visible;
+  visibility: visible;
 }
-    .questionOne.active {
-        visibility: hidden;
-    }
-.addButton {
-    visibility: hidden;
+.questionOne.active {
+  visibility: hidden;
+  } */
+/* .addButton {
+  visibility: hidden;
 }
-    .addButton.active {
-        visibility: visible;
-    }
+.addButton.active {
+  visibility: visible;
+  } */
+
+/* desktop style */
+@media only screen and (min-width:1000px) {
+  #logo {
+    font-size: 6em;
+  }
+  #blurb {
+    width: 25%;
+  }
+  .bottomright {
+  right:-5px;
+  }
+  img {
+    width: 40em;
+    height:auto;
+  }
+  #main {
+    flex-direction: row; 
+    padding-bottom: 0; 
+  }
+  #chart {
+    width: 45%;
+  }
+  #list {
+    width: 45%;
+  }
+  .selectors {
+    flex-direction: row;
+  }
+}
