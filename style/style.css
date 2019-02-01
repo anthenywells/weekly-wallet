@@ -18,15 +18,15 @@
     .add-expense.active {
         visibility: visible;
     }
-.budgetFactor {
+.questionOne {
     visibility: visible;
 }
-    .budgetFactor.active {
+    .questionOne.active {
         visibility: hidden;
     }
-.open {
+.addButton {
     visibility: hidden;
 }
-    .open.active {
+    .addButton.active {
         visibility: visible;
     }
