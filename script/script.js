@@ -1,223 +1,235 @@
 "use strict";
-
-// chart.js 
-new Chart(document.getElementById("pie-chart"), {
-  type: 'pie',
-  data: {
-    labels: ["Bills", "Grocery", "Clothing", "Entertainment", "Misc."],
-    datasets: [{
-      label: "Population (millions)",
-      backgroundColor: ["#47833e", "#6ba34f","#75d06c","#a2caa2","#caeaca"],
-      data: [25,25,25,25,25]
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'Total Expenses'
-    }
-  }
-}); 
-
-
-$(document).ready(() => {
-  let expenceList = [];
-// budget button
-  function enterBudget() {  //function that when clicked hides the enter budget div. also will push the amount entered into the totalBudget array.  
-    // $(".myButton").on("click", function () {
-    //   $(".addButton").addClass("active");
-    // });
-    let userTotal = 0;
-    $(".myButton").on("click", function (e) {
-      if (userTotal === 0) {
-        userTotal = $("#input-total").val();
-        e.preventDefault(); // when submit is clicked, the user input is stored in user total and replaces the question on the screen
-        $(".budgetFactor").append(`<p> Budget Total = $${userTotal}</p>`);
-      } else if (userTotal !== 0){
-        userTotal = $("#input-total").val();
-        $(".budgetFactor").text(`Budget Total = $${userTotal}`);
-        console.log(userTotal);
-      }
-    });
-  }
-// expense form
-  function openModal() { //function that opens the Expense Input Modal when the "Add Expense" button is clicked
-    $(".addButton").on("click", function (e) {
-      e.preventDefault(); // needed this to stop the event from constantly refreshing
-      $("#form").css('display','block'); //gives the form div a display class of block
-    });
-    $(".close, .popup").on("click", function () { // removes the class of active when the user "adds" a new expense
-      $(".popup, .popup-content").removeClass("active");
-    });
-  }
+// push expenses to expenseList array 
+function expPush(){
+  expenseList.push({
+    input: $("#myExpense").val(),
+    amount: parseInt($("#expPrice").val()),
+    id: counter++
+  });
+};
+//append expenses to overflow list
+function expAppend(expen){
+  $("#expenseList").append(`
+      <li class="${expen}">${$("#myExpense").val()} $${parseInt($("#expPrice").val())}
+      </li>`
+    );
+};
+// function to add expense data to expense variables
+function addExp(num, expen) {
+  data.splice(num,1, expen)
+  chart.update();
+};
+//update the data and reload pie chart
+function updateData(data) {
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.push(data);
+  });
+  chart.update();
+};
 
 
+let totalBudget = 0; let totalExpense = 0; let expenseList = [];
+let entertainment = 0; let food = 0; let clothing = 0; let bills = 0; let misc = 0;
+let counter = 0;
 
-  openModal();
-  enterBudget();
+// stores and displays user budget on Try Now button click
+//updates total budget text if reentered
+$('#myButton').on('click', function(event) {
+  event.preventDefault();
+    totalBudget = parseInt($('#myBudget').val());
+    $(".totalBudget").text(`${totalBudget}`);
+  //clears input field
+  $("#myBudget").val("");
+});
 
-  function deleteObject() {
-    $("#expenseList").on("click", ".entertainment", function () {
-      $().remove();
-    });
-  }
-  deleteObject();
+//Try Now button click scrolls to #main section
+$("a[href^='#']").click(function(e) {
+	e.preventDefault();
+	var position = $($(this).attr("href")).offset().top;
+	$("body, html").animate({
+		scrollTop: position
+	}, 400, 'linear' );
+});
 
-  // let expenceList = [];
-  // let totalBudget = [];
-  let counter = 0;
+//diable Add Expense button until a expPrice has been input 
+// $('#myExpButton').attr('disabled',true);
+//     $('#expPrice').keyup(function(){
+//         if($(this).val().length !=0)
+//             $('.#myExpButton').attr('disabled', false);            
+//         else
+//             $('#myExpButton').attr('disabled',true);
+//     });
+
+
+// Add Expense button adds expenses to overflow list
+$("#myExpButton").on("click", function (e) {
+  e.preventDefault(); //prevent page refresh on form submit
+
+    //stores and displays totalExpense variable
+    totalExpense += parseInt($('#expPrice').val());
+    $(".totalExpense").text(`${totalExpense}`);
+    //updates total budget to reflect expenses
+    totalBudget -= parseInt($('#expPrice').val());
+    $(".totalBudget").text(`${totalBudget}`);
   
 
-  $("#expButton").on("click", function (e) {
-    console.log("hello")
-    if ($("#category").val() === "Entertainment") {
-    console.log("hi")
+  if ($("#category2").val() === "Entertainment") {
+    expPush();
+    expAppend("entertainment");
+    entertainment += parseInt($("#expPrice").val())
+    addExp(0, entertainment);    
+  } 
+  else if ($("#category2").val() === "Food") {
+    expPush();
+    expAppend("food");    
+    food += parseInt($("#expPrice").val())
+    addExp(1, food);
+  } 
+  else if ($("#category2").val() === "Clothing") {
+    expPush();
+    expAppend("clothing");
+    clothing += parseInt($("#expPrice").val())
+    addExp(2, clothing);
+  } 
+  else if ($("#category2").val() === "Bills") {
+    expPush();    
+    expAppend("bills");
+    bills += parseInt($("#expPrice").val())
+    addExp(3, bills);
+  } 
+  else if ($("#category2").val() === "Misc") {
+    expPush();
+    expAppend("misc");
+    misc += parseInt($("#expPrice").val())
+    addExp(4, misc);    
+  } else {
+    expPush();
+    expAppend("misc");
+    misc += parseInt($("#expPrice").val())
+    addExp(4, misc); 
+  }
+  //clear all input fields
+  $("#myExpense, #expPrice, #category2").val("");
 
-      expenceList.push({
-        input: $("#input").val(),
-        amount: parseInt($("#amount-input").val()),
-        id: counter++
-      });
-      $("#expenseList").append(`
-        <li class="entertainment">${$("#input").val()} $${$("#amount-input").val()}
-        <button id="delete"><i class="fas fa-trash"></i></button>
-        </li>`
-      );
-    } else if ($("#category").val() === "Bills") {
-      expenceList.push({
-        input: $("#input").val(),
-        amount: parseInt($("#amount-input").val()),
-        id: counter++
-      });
-      $("#expenseList").append(`
-        <li class="bills">${$("#input").val()} $${$("#amount-input").val()}
-        <button class="delete"><i class="fas fa-trash"></i></button>
-        </li>`
-      );
-    } else if ($("#category").val() === "Food") {
-      expenceList.push({
-        input: $("#input").val(),
-        amount: parseInt($("#amount-input").val()),
-        id: counter++
-      });
-      $("#expenseList").append(`
-        <li class="food">${$("#input").val()} $${$("#amount-input").val()}
-        <button class="delete"><i class="fas fa-trash"></i></button>
-        </li>`
-      );
-    } else if ($("#category").val() === "Clothing") {
-      expenceList.push({
-        input: $("#input").val(),
-        amount: parseInt($("#amount-input").val()),
-        id: counter++
-      });
-      $("#expenseList").append(`
-        <li class="clothing">${$("#input").val()} $${$("#amount-input").val()}
-        <button class="delete"><i class="fas fa-trash"></i></button>
-        </li>`
-      );
-    } else if ($("#category").val() === "Misc") {
-      expenceList.push({
-        input: $("#input").val(),
-        amount: parseInt($("#amount-input").val()),
-        id: counter++
-      });
-      $("#expenseList").append(`
-        <li class="misc">${$("#input").val()} $${$("#amount-input").val()}
-        <button class="delete"><i class="fas fa-trash"></i></button>
-        </li>`
-      );
+  // $(".delete").on("click", function (e) {
+  //   // Find the matching element in foodList
+  //   expenseList.splice(expenseList.findIndex(expense => expense.id === Number($(e.target).parent().attr("index"))), 1);
+  //   // Remove the matching element from the DOM
+  //   $(e.target).parent().remove();
+  //   updateData();
+  // });
+  //open WARNING message if user spent too much
+  if (totalBudget <= 0) {
+    $("#warning").css("display", "block")
+  }
+});
+
+
+let data = [entertainment, food, clothing, bills, misc]
+// chart.js 
+  let chart = new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: ["Entertainment", "Food", "Clothing", "Bills", "Misc."],
+      datasets: [{
+        data: data,
+        backgroundColor: ["#47833e", "#6ba34f","#75d06c","#a2caa2","#caeaca"],
+      }]
     }
-    console.log(expenceList);
-    // console.log(expenceList[0].amount);
-    e.preventDefault();
-  });
+  });    
+
+
+// Add Button opens modal
+$("#addButton").on("click", function(){
+  $("#myModal").css("display", "block")
+}); 
+//X closes modal
+$(".close").on("click", function(){
+  $("#myModal").css("display", "none")
+  $("#warning").css("display", "none")
+
+})
+//clicking outside of the modal closes the modal
+$(window).on('click', function(e){
+  if(e.target.id == 'myModal'){
+      $('#myModal').css("display", "none");
+      $('#warning').css("display", "none");
+  }
+});
 
 
 
 
-   
-
-
-// custom select button
-var x, i, j, selElmnt, a, b, c;
+// Custom Select Button
+let x, i, j, selElmnt, a, b, c;
 /* Look for any elements with the class "custom-select": */
 x = document.getElementsByClassName("custom-select");
 for (i = 0; i < x.length; i++) {
-selElmnt = x[i].getElementsByTagName("select")[0];
-/* For each element, create a new DIV that will act as the selected item: */
-a = document.createElement("DIV");
-a.setAttribute("class", "select-selected");
-a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
-x[i].appendChild(a);
-/* For each element, create a new DIV that will contain the option list: */
-b = document.createElement("DIV");
-b.setAttribute("class", "select-items select-hide");
-for (j = 1; j < selElmnt.length; j++) {
-  /* For each option in the original select element,
-  create a new DIV that will act as an option item: */
-  c = document.createElement("DIV");
-  c.innerHTML = selElmnt.options[j].innerHTML;
-  c.addEventListener("click", function(e) {
-      /* When an item is clicked, update the original select box,
-      and the selected item: */
-      var y, i, k, s, h;
-      s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-      h = this.parentNode.previousSibling;
-      for (i = 0; i < s.length; i++) {
-        if (s.options[i].innerHTML == this.innerHTML) {
-          s.selectedIndex = i;
-          h.innerHTML = this.innerHTML;
-          y = this.parentNode.getElementsByClassName("same-as-selected");
-          for (k = 0; k < y.length; k++) {
-            y[k].removeAttribute("class");
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  /* For each element, create a new DIV that will act as the selected item: */
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /* For each element, create a new DIV that will contain the option list: */
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < selElmnt.length; j++) {
+    /* For each option in the original select element,
+    create a new DIV that will act as an option item: */
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /* When an item is clicked, update the original select box,
+        and the selected item: */
+        let y, i, k, s, h;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < s.length; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            for (k = 0; k < y.length; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
           }
-          this.setAttribute("class", "same-as-selected");
-          break;
         }
-      }
-      h.click();
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+    /* When the select box is clicked, close any other select boxes,
+    and open/close the current select box: */
+    e.stopPropagation();
+    closeAllSelect(this);
+    this.nextSibling.classList.toggle("select-hide");
+    this.classList.toggle("select-arrow-active");
   });
-  b.appendChild(c);
 }
-x[i].appendChild(b);
-a.addEventListener("click", function(e) {
-  /* When the select box is clicked, close any other select boxes,
-  and open/close the current select box: */
-  e.stopPropagation();
-  closeAllSelect(this);
-  this.nextSibling.classList.toggle("select-hide");
-  this.classList.toggle("select-arrow-active");
-});
-}
-
 function closeAllSelect(elmnt) {
-/* A function that will close all select boxes in the document,
-except the current select box: */
-var x, y, i, arrNo = [];
-x = document.getElementsByClassName("select-items");
-y = document.getElementsByClassName("select-selected");
-for (i = 0; i < y.length; i++) {
-  if (elmnt == y[i]) {
-    arrNo.push(i)
-  } else {
-    y[i].classList.remove("select-arrow-active");
+  /* A function that will close all select boxes in the document,
+  except the current select box: */
+  let x, y, i, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  for (i = 0; i < y.length; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < x.length; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
   }
 }
-for (i = 0; i < x.length; i++) {
-  if (arrNo.indexOf(i)) {
-    x[i].classList.add("select-hide");
-  }
-}
-}
-
 /* If the user clicks anywhere outside the select box,
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
-});
-function deleteObject() {
-  $("#delete").on("click", function () {
-    console.log("delete");
-  });
-}
-deleteObject();
