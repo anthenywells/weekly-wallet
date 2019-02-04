@@ -57,7 +57,6 @@ $("a[href^='#']").click(function(e) {
 
 // Add Expense button adds expenses to overflow list
 $("#myExpButton").on("click", function (e) {
-  $('.numeric').numeric();
   e.preventDefault(); //prevent page refresh on form submit
 
     //stores and displays totalExpense variable
@@ -135,6 +134,10 @@ let data = [entertainment, food, clothing, bills, misc]
   });    
 
 
+
+$("#myButton").on("click", function(){
+  $("#myModal").css("display", "block")
+}); 
 // Add Button opens modal
 $("#addButton").on("click", function(){
   $("#myModal").css("display", "block")
