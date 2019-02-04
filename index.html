@@ -4,46 +4,105 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Weeklytwo Wallet</title>
-  <link rel="stylesheet" href="style/style.css">
-  <!-- font awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-<link rel="modal:open" href="add-expense">
-</head>
+  <title>Document</title>
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+ 
+  <!-- user style -->
+  <link rel="stylesheet" href="/style/style.css">
+  <!-- favicon -->
+  <link rel="icon" 
+      type="image/png" 
+      href="/assets/25-money-mouth-face.png">
 
+</head>
 <body>
-  <form>
-        <p class="title">Weekly Wallet</p>
-        <div class="budgetFactor"> 
-            <p>What is your weekly budget? <input id="input-total" type="number"><button class="submit" value="submit">Submit Budget</submit></input></p>
-        </div>
-                <!-- Add Expense Button -->
-        <button id="add-expense" class="addButton">Add New Expense</button> 
-        <!--Creating the popup body with class .popup-overlay-->
-        <div class="popup-overlay">
-        <!--Creating the popup-content that shows when the `add expense` button is clicked-->
-         <div class="popup-content">
-                    <p>Expense: <input id="input" type="text"></input></p>
-                    <p> Amount: <input id="amount-input" type="number"></input></p>
-                    <p>Type: <select id="category">
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Bills">Bills</option>
-                        <option value="Food">Food</option>
-                        <option value="Clothing">Clothing</option>
-                        <option value="Misc">Misc.</option>
-                    </select>
-                    </p>
-                <!--popup's close button-->
-                <button id="expButton" class="close">Add</button>    
-                </div>
-        </div>
-  </form>
-  <div class="wrapper">
-      <section id="expenseList"></section>
+
+  <header id="parallax">
+      <p id="logo">Weekly Wallet</p>
+      <p id="blurb">Enter your budget, enter your weekly expenses, let Weekly Wallet do the rest. It's that easy.</p>
+      <form id="budgetForm">
+      <input type="text" name="budget" placeholder="Enter your budget" id="myBudget" required>
+      <a type="submit" id="myButton" href="#main">Try now</a>
+      </form>
+      <div class="bottomright">
+        <img src="/assets/undraw_wallet_aym5.svg" alt="" srcset="">
+      </div>
+  </header>
+
+  <main id="main">
+    <section id="budgetSection"><p>Total budget: $<span class="totalBudget">0</span></p></section>
+    <section id="expenseSection"><p>Total expense: $<span class="totalExpense">0</span></p></section>
+
+    <section id="chart">
+      <canvas id="pie-chart" width="800" height="450"></canvas>
+    </section>
+
+    <section id="list">
+      <div class="selectors">
+        
+        <a href="#main" id="addButton" class="addButton">Add Expenses</a>
+        <!-- <div class="custom-select">
+          <select id="category1">
+              <option value="allExpenses">All Expenses</option>
+              <option value="allExpenses">All Expenses</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Food">Food</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Bills">Bills</option>
+              <option value="Misc">Misc.</option>
+          </select>
+          </div> -->
+      </div>
+      <div id="overflowTest">
+          <section id="expenseList"></section>
+      </div>
+    </section>
+  </main>
+
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form id="addExpense">
+          <input type="text" name="expense" placeholder="Enter an expense" id="myExpense" required />
+          <input type="number" name="price" placeholder="Price" id="expPrice" required />
+          <div class="custom-select">
+              <select id="category2">
+                  <option value="Choose">Choose category</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Food">Food</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Bills">Bills</option>
+                  <option value="Misc">Misc.</option>
+              </select>
+              </div>
+          <input type="submit" id="myExpButton" value="Add" />
+      </form>
+    </div>
   </div>
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="script.js"></script>
-</head>
+  <div id="warning" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>WARNING: You've spent more than your budget!</p>
+        </div>  
+  </div>
+  
+  <footer>  
+    Weekly Wallet 🤑
+  </footer>
+
+ <!-- jquery -->
+  <script src="/script/jquery.js"></script>
+
+  <!-- chart.js  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+ 
+  <script src="/script/script.js"></script>
+</body>
 </html>
