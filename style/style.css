@@ -1,6 +1,7 @@
 body, html {
   height: 100%;
   font-family: 'Lato', sans-serif;
+  margin:0;
 }
 
 #parallax { 
@@ -88,8 +89,19 @@ img {
   font-size: 1.8em;
   font-weight: 700;
 }
-#expenseSection{
+#expenseSection {
   width: 100%;
+  display: flex;
+  flex-direction:column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.expText {
+  width:230px;
   display: flex;
   flex-direction:column;
   justify-content: flex-start;

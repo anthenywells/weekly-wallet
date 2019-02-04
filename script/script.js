@@ -1,16 +1,18 @@
 "use strict";
+//Run this function when the document has finished loading
+$(document).ready(() => {
 // push expenses to expenseList array 
 function expPush(){
   expenseList.push({
     input: $("#myExpense").val(),
-    amount: parseInt($("#expPrice").val()),
+    amount: parseFloat($("#expPrice").val()).toFixed(2),
     id: counter++
   });
 };
 //append expenses to overflow list
 function expAppend(expen){
   $("#expenseList").append(`
-      <li class="${expen}">${$("#myExpense").val()} $${parseInt($("#expPrice").val())}
+      <li class="${expen}">${$("#myExpense").val()} $${parseFloat($("#expPrice").val()).toFixed(2)}
       </li>`
     );
 };
@@ -19,14 +21,6 @@ function addExp(num, expen) {
   data.splice(num,1, expen)
   chart.update();
 };
-//update the data and reload pie chart
-function updateData(data) {
-  chart.data.datasets.forEach((dataset) => {
-      dataset.data.push(data);
-  });
-  chart.update();
-};
-
 
 let totalBudget = 0; let totalExpense = 0; let expenseList = [];
 let entertainment = 0; let food = 0; let clothing = 0; let bills = 0; let misc = 0;
@@ -36,7 +30,7 @@ let counter = 0;
 //updates total budget text if reentered
 $('#myButton').on('click', function(event) {
   event.preventDefault();
-    totalBudget = parseInt($('#myBudget').val());
+    totalBudget = parseFloat($('#myBudget').val()).toFixed(2);
     $(".totalBudget").text(`${totalBudget}`);
   //clears input field
   $("#myBudget").val("");
@@ -63,6 +57,7 @@ $("a[href^='#']").click(function(e) {
 
 // Add Expense button adds expenses to overflow list
 $("#myExpButton").on("click", function (e) {
+  $('.numeric').numeric();
   e.preventDefault(); //prevent page refresh on form submit
 
     //stores and displays totalExpense variable
@@ -118,6 +113,7 @@ $("#myExpButton").on("click", function (e) {
   //   $(e.target).parent().remove();
   //   updateData();
   // });
+  
   //open WARNING message if user spent too much
   if (totalBudget <= 0) {
     $("#warning").css("display", "block")
@@ -233,3 +229,4 @@ function closeAllSelect(elmnt) {
 /* If the user clicks anywhere outside the select box,
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
+});

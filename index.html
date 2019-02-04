@@ -22,7 +22,7 @@
       <p id="logo">Weekly Wallet</p>
       <p id="blurb">Enter your budget, enter your weekly expenses, let Weekly Wallet do the rest. It's that easy.</p>
       <form id="budgetForm">
-      <input type="text" name="budget" placeholder="Enter your budget" id="myBudget" required>
+      <input type="number" name="budget" placeholder="Enter your budget" id="myBudget" required />
       <a type="submit" id="myButton" href="#main">Try now</a>
       </form>
       <div class="bottomright">
@@ -69,6 +69,7 @@
     <div class="modal-content">
       <span class="close">&times;</span>
       <form id="addExpense">
+          <p class="expText">Add some expenses</p>
           <input type="text" name="expense" placeholder="Enter an expense" id="myExpense" required />
           <input type="number" name="price" placeholder="Price" id="expPrice" required />
           <div class="custom-select">
